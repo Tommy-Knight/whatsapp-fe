@@ -12,7 +12,8 @@ declare global {
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export const initialState = {
-	testRandomNumber: 0,
+	user: {},
+	allUsers:{}
 };
 
 const configureStore = () =>
