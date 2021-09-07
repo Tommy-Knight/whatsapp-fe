@@ -1,18 +1,18 @@
 import { Col, Container, Row } from "react-bootstrap";
+import { Props, UserInterface } from "../../types";
 import { allUsersAction, userAction } from "../../redux/actions";
 
 import { Dispatch } from "redux";
 import Messages from "../Messages";
+import React from "react";
 import Sidebar from "../Sidebar/Component";
-import { UserInterface } from "../../types";
 import UserPreview from "../UserPreview";
 import { connect } from "react-redux";
 import { useEffect } from "react";
 
-// import PropTypes from "prop-types";
 // import { RouteComponentProps } from "react-router-dom";
 
-const Home = (props: any) => {
+const Home = ({history, userDispatch, allUsersDispatch}:Props) => {
 	useEffect(() => {
 		const loginFetch = async () => {
 			const resp = await fetch(`http://localhost:3004/users/me`, {
@@ -20,9 +20,9 @@ const Home = (props: any) => {
 			});
 			const data = await resp.json();
 			if (resp.ok) {
-				props.userDispatch(data);
+				userDispatch(data);
 			} else {
-				props.history.push("/login");
+				history.push("/login");
 			}
 		};
 		const allUsersFetch = async () => {
@@ -31,15 +31,13 @@ const Home = (props: any) => {
 			});
 			const data = await resp.json();
 			if (resp.ok) {
-				props.allUsersDispatch(data.users);
+				allUsersDispatch(data.users);
 			}
 		};
 		loginFetch().then();
 		allUsersFetch();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
-
-
 
 	return (
 		<Container fluid={true}>
