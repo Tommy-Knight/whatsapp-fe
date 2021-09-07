@@ -1,6 +1,6 @@
 import './style.css'
-import AuthView from "../AuthView";
-import Home from "../Home";
+import Login from "../../Login";
+import Home from "../../Home";
 
 const DraftPage = () => {
     return (
