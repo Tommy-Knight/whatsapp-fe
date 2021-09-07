@@ -1,13 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './style/App.css'
+import './App.css'
 
-import Home from './components/Home'
 import React from 'react'
+import DraftPage from "./components/Mockups/_DraftPage";
 
 function App() {
   return (
     <div className="App">
-
+      <DraftPage/>
     </div>
   );
 }

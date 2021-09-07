@@ -1,16 +1,12 @@
 import './style.css'
 import AuthView from "../AuthView";
-import Home from "../../Home";
-
-
-
+import Home from "../Home";
 
 const DraftPage = () => {
     return (
-        <div className={}>
-            <AuthView/>
+        <>
             <Home/>
-        </div>
+        </>
     )
 }
 

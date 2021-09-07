@@ -1,4 +1,4 @@
-import './style.css'
+
 import {useState} from "react";
 import {Button, Form} from "react-bootstrap";
 

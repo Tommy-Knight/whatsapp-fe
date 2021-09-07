@@ -1,17 +1,17 @@
 import './style.css'
-import ChatPreview from "../ChatPreview/Component";
+import ChatPreview from "../ChatPreview";
 
 
-const ProfilePreview = <div> <span> {'< ProfilePreview >'} </span></div>
-const SearchUser = <div> <span> {'< SearchUser >'} </span></div>
-const CreateGroup = <div> <span> {'< CreateGroup >'} </span></div>
+const ProfilePreview = () => <div> <span> {'< ProfilePreview >'} </span></div>
+const SearchUser = () => <div> <span> {'< SearchUser >'} </span></div>
+const CreateGroup = () =>  <div> <span> {'< CreateGroup >'} </span></div>
 
 
 
 const Sidebar = () => {
     const chats = [ {} , {} , {} , {} , {} , {} , {} , {} , {} ,]
     return (
-        <div className={}>
+        <div >
             <ProfilePreview/>
             <SearchUser/>
             <CreateGroup/>

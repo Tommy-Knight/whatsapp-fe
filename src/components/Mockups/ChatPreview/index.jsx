@@ -1,8 +1,8 @@
 import './style.css'
 
-const ChatPreview = () => {
+const ChatPreview = ({chat}) => {
     return (
-        <div className={}>
+        <div >
             <span> {'< icon >'} </span>
             <span> {' < Name >'} </span>
             <span> {' < partial last msg >'} </span>
