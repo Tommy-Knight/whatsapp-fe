@@ -39,18 +39,20 @@ const Home = (props: any) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
+
+
 	return (
 		<Container fluid={true}>
 			<Row>
 				<Col md={3}>
 					<aside>
-						<Sidebar />
+						<Sidebar/>
 					</aside>
 				</Col>
 				<Col md={9}>
 					<main>
-						<UserPreview />
-						<Messages />
+						<UserPreview/>
+						<Messages/>
 					</main>
 				</Col>
 			</Row>
