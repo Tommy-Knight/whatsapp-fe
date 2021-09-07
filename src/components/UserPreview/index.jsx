@@ -24,7 +24,7 @@ const UserPreview = (props) => {
 					</div>
 				</Col>
 				<Col md={9}>
-					{isSingleUser ? <h1 id={"userNickname"}> {props.user.name}</h1> : <h1 id={"groupName"} />}
+					{isSingleUser ? <h1 id={"userNickname"}> {props.user.name}</h1> : <h1 id={"groupName"}>GROUP</h1>}
 				</Col>
 			</Row>
 		</section>
