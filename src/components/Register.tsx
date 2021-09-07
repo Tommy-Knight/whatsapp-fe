@@ -1,20 +1,23 @@
 import React, { MouseEvent, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 import { RouteComponentProps } from "react-router-dom";
 
-export const Login: React.FunctionComponent<RouteComponentProps> = ({ history }) => {
+export const Register: React.FunctionComponent<RouteComponentProps> = ({ history }) => {
+	const [name, setName] = useState("");
+	const [surname, setSurname] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
 	const bodyJSON = JSON.stringify({
 		email: email,
 		password: password,
+		name: name,
+		surname: surname,
 	});
 
 	const handleSubmit = async (e: MouseEvent<HTMLButtonElement>) => {
 		try {
-			const resp = await fetch(`http://localhost:3004/auth/login`, {
+			const resp = await fetch(`http://localhost:3004/auth/register`, {
 				method: "POST",
 				credentials: "include",
 				headers: {
@@ -22,20 +25,27 @@ export const Login: React.FunctionComponent<RouteComponentProps> = ({ history })
 				},
 				body: bodyJSON,
 			});
-			const data = await resp.json();
-			if (resp.ok) {
-				history.push("/home");
-			} else {
-				console.log(data);
-			}
+			if (resp.ok) history.push("/login");
 		} catch (error) {
 			console.log(error);
 		}
 	};
-	
+
 	return (
 		<div className='App App-header'>
-			login
+			register
+			<input
+				type='text'
+				placeholder='name'
+				onChange={(e) => {
+					setName(e.target.value);
+				}}></input>
+			<input
+				type='text'
+				placeholder='surname'
+				onChange={(e) => {
+					setSurname(e.target.value);
+				}}></input>
 			<input
 				type='text'
 				placeholder='email'
