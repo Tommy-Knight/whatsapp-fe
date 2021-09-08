@@ -6,7 +6,8 @@ const MessageRow = ({position}) => {
 
     return (
         <div className={`d-flex justify-content-${position}`} style={{width: '100%', height: 'max-content'}}>
-            <p style={{maxWidth: '25%', height: 'max-content'}}>
+            <p  className={`message ${position}` }
+                style={{maxWidth: '25%', height: 'max-content'}}>
                 {'< message text >'}
             </p>
         </div>)

@@ -1,5 +1,33 @@
-div{
-    border: 1px solid black;
-    padding: 5px;
+:root{
+    --main-bg: white;
+    --primary: #4a4bec;
+    --main-font: Garamond
 }
+
+body{
+    margin: 0;
+    background: var(--main-bg);
+    font: var(--main-font)
+}
+
+ .container, .container-fluid{
+ height: 100vh;
+}
+.row{
+height: 100%
+}
+/*
+main{
+    height: 100%
+}
+*/
+body *{
+    border-radius: 5px;
+}
+
+div, p{
+
+}
+
+
 

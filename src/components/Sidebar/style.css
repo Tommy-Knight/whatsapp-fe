@@ -1,0 +1,31 @@
+#leftSidebar {
+
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#leftSidebar, #leftSidebar > * {
+    height: 100%
+}
+
+#leftSidebar > * {
+    color: white;
+    margin: 5px;
+    border: none;
+    background: var(--primary );
+    border-radius: 30px
+}
+
+#loggedUserPreview {
+
+}
+
+#loggedUserPreview h3 {
+    padding: 5px;
+
+}
+
+#loggedUserPreview img {
+    border-radius: 50%;
+    border: 3px solid white;
+}

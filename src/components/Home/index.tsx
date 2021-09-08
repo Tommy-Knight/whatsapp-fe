@@ -1,8 +1,10 @@
+import './style.css'
+
 import React, { useEffect } from "react";
 
 import { RouteComponentProps } from "react-router-dom";
 import {Col, Container, Row} from "react-bootstrap";
-import Sidebar from "../Sidebar/Component";
+import Sidebar from "../Sidebar";
 import UserPreview from "../UserPreview";
 import Messages from "../Messages";
 
@@ -21,17 +23,15 @@ export const Home: React.FunctionComponent<RouteComponentProps> = ({
 		loginFetch().then();
 	});
 
-
-
 	return (
-		<Container fluid={true}>
+		<Container id={'home'}>
 			<Row>
-				<Col md={3}>
+				<Col sm={4}>
 					<aside>
 						<Sidebar/>
 					</aside>
 				</Col>
-				<Col md={9}>
+				<Col sm={8}>
 					<main>
 						<UserPreview/>
 						<Messages/>

@@ -1,0 +1,33 @@
+#landingView h1,
+#landingView h3
+{
+    color: var( --primary );
+    font-weight: bold;
+}
+main{
+    height: 100%;
+}
+#landingView .btn{
+    font-size: 30px;
+    font-weight: bold;
+    width: 250px;
+    height: 100px;
+    background-color: var( --primary );
+}
+#landingView .outlined{
+    color: var( --primary );
+    text-shadow:
+            -3px -3px 0 #000,
+            0   -3px 0 #000,
+            3px -3px 0 #000,
+            3px  0   0 #000,
+            3px  3px 0 #000,
+            0    3px 0 #000,
+            -3px  3px 0 #000,
+            -3px  0   0 #000;
+}
+#landingView #landingIllustration{
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}

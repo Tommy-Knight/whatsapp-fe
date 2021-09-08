@@ -1,0 +1,30 @@
+
+.card-title {
+    background: var(--primary);
+    color: white;
+    font-weight: bolder;
+}
+
+.authForm .main-bg {
+    background: var(--primary) ;
+}
+
+.authForm input:focus,
+.authForm button:focus {
+    color: white;
+    background: var(--primary);
+    border: 3px solid white;
+    outline: 1px black dashed;
+
+    box-shadow: none ;
+}
+
+.authForm .form-check-input:checked {
+
+}
+
+.authForm .card,
+.authForm .btn,
+.authForm input{
+    border-radius:20px ;
+}

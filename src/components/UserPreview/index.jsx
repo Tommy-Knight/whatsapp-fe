@@ -16,7 +16,7 @@ const UserPreview = () => {
                     <div className={'d-flex justify-content-center'}>
                         {isSingleUser ?
                             <img id={'userChatPic'}
-                                 src={'/'}
+                                 src="https://via.placeholder.com/100"
                                  alt={'userChatPic'}/> :
                             <img id={'groupChatPic'}
                                  src={'/'}

@@ -1,0 +1,15 @@
+.message{
+    min-width: 250px;
+    max-width: 600px;
+    padding: 10px;
+    margin: 5px;
+
+    border: 1px solid black;
+    background: white;
+}
+
+.message.start.end{
+    border-radius: 5px 0 5px 0
+
+}
+
