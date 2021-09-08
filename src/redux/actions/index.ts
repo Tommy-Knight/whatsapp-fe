@@ -13,3 +13,16 @@ export const allUsersAction = (allUsers: UserInterface[]) => {
 		payload: allUsers,
 	};
 };
+
+export const myRoomsAction = (myRooms:any) => {
+	return {
+		type: "MY_ROOMS",
+		payload: myRooms,
+	};
+};
+export const selectedMembersAction = (selectedMembers: any) => {
+	return {
+		type: "SELECTED_MEMBERS",
+		payload: selectedMembers,
+	};
+};

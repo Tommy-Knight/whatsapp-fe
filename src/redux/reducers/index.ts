@@ -1,8 +1,8 @@
-import {UserInterface} from "../../types"
-import { initialState } from "../store"
+import { UserInterface } from "../../types";
+import { initialState } from "../store";
 
-const rootReducer = (state = initialState, action: { type: string; payload: UserInterface; }) => {
-  switch (action.type) {
+const rootReducer = (state = initialState, action: { type: string; payload: UserInterface | any }) => {
+	switch (action.type) {
 		case "USER":
 			return {
 				...state,
@@ -13,9 +13,19 @@ const rootReducer = (state = initialState, action: { type: string; payload: User
 				...state,
 				allUsers: action.payload,
 			};
+		case "SELECTED_MEMBERS":
+			return {
+				...state,
+				selectedMembers: action.payload,
+			};
+		case "MY_ROOMS":
+			return {
+				...state,
+				myRooms: action.payload,
+			};
 		default:
 			return state;
 	}
-}
+};
 
-export default rootReducer
+export default rootReducer;

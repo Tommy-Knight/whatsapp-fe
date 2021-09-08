@@ -17,7 +17,7 @@ export const Register: React.FunctionComponent<RouteComponentProps> = ({history}
 
     const handleSubmit = async (e: MouseEvent<HTMLButtonElement>) => {
         try {
-            const resp = await fetch(`http://localhost:3004/auth/register`, {
+            const resp = await fetch(`${process.env.REACT_APP_BACKEND}/auth/register`, {
                 method: "POST",
                 credentials: "include",
                 headers: {

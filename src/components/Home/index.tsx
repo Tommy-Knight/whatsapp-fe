@@ -1,6 +1,6 @@
 import { Col, Container, Row } from "react-bootstrap";
 import { Props, UserInterface } from "../../types";
-import { allUsersAction, userAction } from "../../redux/actions";
+import { allUsersAction, myRoomsAction, userAction } from "../../redux/actions";
 
 import { Dispatch } from "redux";
 import Messages from "../Messages";
@@ -12,10 +12,10 @@ import { useEffect } from "react";
 
 // import { RouteComponentProps } from "react-router-dom";
 
-const Home = ({history, userDispatch, allUsersDispatch}:Props) => {
+const Home = ( { history, userDispatch, myRoomsDispatch, allUsersDispatch, user }: Props) => {
 	useEffect(() => {
 		const loginFetch = async () => {
-			const resp = await fetch(`http://localhost:3004/users/me`, {
+			const resp = await fetch(`${process.env.REACT_APP_BACKEND}/users/me`, {
 				credentials: "include",
 			});
 			const data = await resp.json();
@@ -26,7 +26,7 @@ const Home = ({history, userDispatch, allUsersDispatch}:Props) => {
 			}
 		};
 		const allUsersFetch = async () => {
-			const resp = await fetch(`http://localhost:3004/users/`, {
+			const resp = await fetch(`${process.env.REACT_APP_BACKEND}/users/`, {
 				credentials: "include",
 			});
 			const data = await resp.json();
@@ -34,8 +34,19 @@ const Home = ({history, userDispatch, allUsersDispatch}:Props) => {
 				allUsersDispatch(data.users);
 			}
 		};
+		const myRoomsFetch = async () => {
+			const resp = await fetch(`${process.env.REACT_APP_BACKEND}/rooms/${user._id}`, {
+				credentials: "include",
+			});
+			const data = await resp.json();
+			console.log(data)
+			if (resp.ok) {
+				myRoomsDispatch(data);
+			}
+		};
 		loginFetch().then();
 		allUsersFetch();
+		myRoomsFetch();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -44,13 +55,13 @@ const Home = ({history, userDispatch, allUsersDispatch}:Props) => {
 			<Row>
 				<Col md={3}>
 					<aside>
-						<Sidebar/>
+						<Sidebar />
 					</aside>
 				</Col>
 				<Col md={9}>
 					<main>
-						<UserPreview/>
-						<Messages/>
+						<UserPreview />
+						<Messages />
 					</main>
 				</Col>
 			</Row>
@@ -60,6 +71,7 @@ const Home = ({history, userDispatch, allUsersDispatch}:Props) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
 	userDispatch: (user: UserInterface) => dispatch(userAction(user)),
-	allUsersDispatch: (allUsers: UserInterface[]) => dispatch(allUsersAction(allUsers))
+	allUsersDispatch: (allUsers: UserInterface[]) => dispatch(allUsersAction(allUsers)),
+	myRoomsDispatch: (myRooms: any) => dispatch(myRoomsAction(myRooms))
 });
-export default connect(null, mapDispatchToProps)(Home);
+export default connect(s=>s, mapDispatchToProps)(Home);

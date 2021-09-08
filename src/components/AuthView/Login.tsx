@@ -13,14 +13,14 @@ export const Login: React.FunctionComponent<RouteComponentProps> = ({history}) =
 
     const handleSubmit = async (e: MouseEvent<HTMLButtonElement>) => {
         try {
-            const resp = await fetch(`http://localhost:3004/auth/login`, {
-                method: "POST",
-                credentials: "include",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: bodyJSON,
-            });
+            const resp = await fetch(`${process.env.REACT_APP_BACKEND}/auth/login`, {
+							method: "POST",
+							credentials: "include",
+							headers: {
+								"Content-Type": "application/json",
+							},
+							body: bodyJSON,
+						});
             const data = await resp.json();
             if (resp.ok) {
                 history.push("/home");
