@@ -1,15 +1,21 @@
-.message{
+.message {
     min-width: 250px;
     max-width: 600px;
     padding: 10px;
-    margin: 5px;
+    margin: 10px;
 
-    border: 1px solid black;
+
     background: white;
+    border: 2px solid var(--secondary);
+    outline: 5px solid white;
 }
 
-.message.start.end{
-    border-radius: 5px 0 5px 0
+.message.start {
+    border-radius: 15px 0 15px 0
+
+}
+.message.end {
+    border-radius: 0 15px 0 15px
 
 }
 

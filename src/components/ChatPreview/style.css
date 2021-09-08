@@ -1,0 +1,12 @@
+#chatPreview img{
+    border: 2px solid white;
+}
+#chatPreview{
+    color: black;
+    background: white;
+}
+#chatPreview .partial-msg{
+    font-weight: lighter;
+    font-size: 16px;
+    color: var( --primary );
+}
