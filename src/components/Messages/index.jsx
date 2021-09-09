@@ -27,7 +27,7 @@ const Messages = ({
         <div style={{width: '100%', height: '100%'}}>
             {
                 messages.map(msg =>
-                    <MessageRow key={Math.random()} sition={msg.sender === loggedUser ? 'end' : 'start'}/>
+                    <MessageRow key={Math.random()} position={msg.sender === loggedUser ? 'end' : 'start'}/>
                 ).reverse()
             }
         </div>
