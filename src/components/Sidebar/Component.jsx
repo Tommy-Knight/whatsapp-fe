@@ -1,15 +1,44 @@
 import "./style.css";
 
+import { useEffect, useState } from "react";
+
 import ChatPreview from "../ChatPreview";
 import { connect } from "react-redux";
-import { useState } from "react";
 
-const Sidebar = (props) => {
+const Sidebar = (props, { clearSelectedMembersDispatch }) => {
 	const [searchInput, setSearchInput] = useState("");
 	const [selectingMembers, setSelectingMembers] = useState(true);
 	const [filteredUsers, setFilteredUsers] = useState([]);
 
+	const setSearchInputFunc = (e) => {
+		setSearchInput(e.target.value);
+		filterSearchInput();
+	};
+
+	const filterSearchInput = (e) => {
+		const filterAllUsers = props.allUsers.filter((user) => {
+			const searchStr = searchInput.toLowerCase();
+			const nameMatches = user.name.toLowerCase().includes(searchStr);
+			const surnameMatches = user.surname.toLowerCase().includes(searchStr);
+			return nameMatches || surnameMatches;
+			
+		});
+		setFilteredUsers(filterAllUsers);
+		console.log("🎈", filterAllUsers);
+	};
+
+	const selectMembers = () => {
+		setSelectingMembers(selectingMembers ? false : true);
+	};
+
+	const clearSelectingMembers = () => {
+		setSelectingMembers(false);
+		setSearchInput("");
+		clearSelectedMembersDispatch("");
+	};
+
 	const createRoom = async () => {
+		setSelectingMembers(false);
 		const newRoom = JSON.stringify({
 			name: "",
 			description: "",
@@ -33,27 +62,6 @@ const Sidebar = (props) => {
 		}
 	};
 
-	const selectMembers = () => {
-		setSelectingMembers(selectingMembers ? false : true);
-	};
-
-	const setSearchInputFunc = (e) => {
-		setSearchInput(e.target.value);
-		filterSearchInput();
-	};
-
-	const filterSearchInput = (e) => {
-		console.log(props.allUsers);
-		const filterAllUsers = props.allUsers.filter((user) => {
-			const searchStr = searchInput.toLowerCase();
-			const nameMatches = user.name.toLowerCase().includes(searchStr);
-			const surnameMatches = user.surname.toString().includes(searchStr);
-			console.log("🚗", nameMatches);
-			return nameMatches || surnameMatches;
-		});
-		console.log(filterAllUsers);
-	};
-
 	return (
 		<div>
 			<div className='ProfilePreview'>
@@ -70,16 +78,19 @@ const Sidebar = (props) => {
 			</div>
 			<div className='CreateRoom '>
 				<span>
+					{selectingMembers && "Select friends now" && (
+						<button onClick={() => clearSelectingMembers()}>No Thanks</button>
+					)}
 					{selectingMembers ? (
-						<button onClick={() => selectMembers()}>"New Room"</button>
-					) : (( <button onClick={() => createRoom()}>publish room</button>)("Choose a friend to create a room with")) 
-
-					}
+						<button onClick={() => createRoom()}>Publish Room</button>
+					) : (
+						<button onClick={() => selectMembers()}>New Room?</button>
+					)}
 				</span>
 			</div>
 
 			<div>
-				{filteredUsers.length > 1 &&
+				{searchInput.length > 1 &&
 					filteredUsers.map((chat) => (
 						<ChatPreview selectingMembers={selectingMembers} chat={chat} />
 					))}
@@ -88,4 +99,13 @@ const Sidebar = (props) => {
 	);
 };
 
-export default connect((s) => s)(Sidebar);
+const mapDispatchToProps = (dispatch) => ({
+clearSelectedMembersDispatch: () =>
+		dispatch((payload) => {
+			return {
+				type: "CLEAR_SELECTED_MEMBERS",
+				payload,
+			};
+		}),});
+
+export default connect((s) => s, mapDispatchToProps)(Sidebar);

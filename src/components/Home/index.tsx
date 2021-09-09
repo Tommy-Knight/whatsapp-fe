@@ -39,16 +39,16 @@ const Home = ( { history, userDispatch, myRoomsDispatch, allUsersDispatch, user 
 				credentials: "include",
 			});
 			const data = await resp.json();
-			console.log(data)
+			console.log(data);
 			if (resp.ok) {
 				myRoomsDispatch(data);
 			}
 		};
 		loginFetch().then();
-		allUsersFetch();
-		myRoomsFetch();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+		allUsersFetch().then();
+		myRoomsFetch().then();
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [allUsersDispatch, userDispatch, myRoomsDispatch]);
 
 	return (
 		<Container fluid={true}>
