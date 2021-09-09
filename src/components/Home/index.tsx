@@ -12,7 +12,7 @@ import { useEffect } from "react";
 
 // import { RouteComponentProps } from "react-router-dom";
 
-const Home = ({ history, userDispatch, myRoomsDispatch, allUsersDispatch, user }: Props) => {
+const Home = ({ history, userDispatch, myRoomsDispatch, allUsersDispatch, user, allUsers }: Props) => {
 	useEffect(() => {
 		const loginFetch = async () => {
 			const resp = await fetch(`${process.env.REACT_APP_BACKEND}/users/me`, {
@@ -49,7 +49,7 @@ const Home = ({ history, userDispatch, myRoomsDispatch, allUsersDispatch, user }
 		if (user._id) {
 			myRoomsFetch().then();
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [allUsersDispatch, userDispatch, myRoomsDispatch]);
 
 	return (
