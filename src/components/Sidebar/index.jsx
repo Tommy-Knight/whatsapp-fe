@@ -61,7 +61,7 @@ const Sidebar = (props) => {
 	};
 
 	return (
-		<div id={"leftSidebar"} className={"d-flex flex-column justify-content-between"}>
+		<div id={"leftSidebar"} className={"d-flex flex-column justify-content-start"}>
 			{props.user && (
 				<div id={"loggedUserPreview"} className={"d-flex align-items-center p-2 "}>
 					<img className={"m-1"} alt='avatar' src={props.user.avatar} style={{ width: "50px" }} />

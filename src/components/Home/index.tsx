@@ -1,3 +1,5 @@
+import "./style.css";
+
 import { Col, Container, Row } from "react-bootstrap";
 import { Props, UserInterface } from "../../types";
 import { allUsersAction, myRoomsAction, userAction } from "../../redux/actions";
