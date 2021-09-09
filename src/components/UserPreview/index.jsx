@@ -10,22 +10,20 @@ const UserPreview = (props) => {
 	useEffect(() => {
 		setIsSingleUser(true);
 	}, []);
-
 	return (
+        
 		<section id={"userPreview"}>
 			<Row>
 				<Col md={3}>
 					<div className={"d-flex justify-content-center"}>
 						{isSingleUser ? (
-							<img id={"userChatPic"} src={props.user.avatar} style= {{width:"50px"}} alt={"userChatPic"} />
+							<img id={"userChatPic"} src='https://via.placeholder.com/100' alt={"userChatPic"} />
 						) : (
 							<img id={"groupChatPic"} src={"/"} alt={"groupChatPic"} />
 						)}
 					</div>
 				</Col>
-				<Col md={9}>
-					{isSingleUser ? <h1 id={"userNickname"}> {props.user.name}</h1> : <h1 id={"groupName"}>GROUP</h1>}
-				</Col>
+				<Col md={9}>{isSingleUser && <h1 id={"userNickname"}>{props.user.name}</h1>}</Col>
 			</Row>
 		</section>
 	);

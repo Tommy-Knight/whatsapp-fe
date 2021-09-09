@@ -53,14 +53,14 @@ const Home = ({ history, userDispatch, myRoomsDispatch, allUsersDispatch, user }
 	}, [allUsersDispatch, userDispatch, myRoomsDispatch]);
 
 	return (
-		<Container fluid={true}>
+		<Container id={'home'}>
 			<Row>
-				<Col md={3}>
+				<Col sm={4}>
 					<aside>
 						<Sidebar />
 					</aside>
 				</Col>
-				<Col md={9}>
+				<Col sm={8}>
 					<main>
 						<UserPreview />
 						<Messages />

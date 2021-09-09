@@ -15,7 +15,8 @@ export const Register: React.FunctionComponent<RouteComponentProps> = ({history}
         surname: surname,
     });
 
-    const handleSubmit = async (e: MouseEvent<HTMLButtonElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
         try {
             const resp = await fetch(`${process.env.REACT_APP_BACKEND}/auth/register`, {
                 method: "POST",
@@ -32,33 +33,55 @@ export const Register: React.FunctionComponent<RouteComponentProps> = ({history}
     };
 
     return (
-        <div className='App App-header'>
-            register
-            <input
-                type='text'
-                placeholder='name'
-                onChange={(e) => {
-                    setName(e.target.value);
-                }}/>
-            <input
-                type='text'
-                placeholder='surname'
-                onChange={(e) => {
-                    setSurname(e.target.value);
-                }}/>
-            <input
-                type='text'
-                placeholder='email'
-                onChange={(e) => {
-                    setEmail(e.target.value);
-                }}/>
-            <input
-                type='text'
-                placeholder='password'
-                onChange={(e) => {
-                    setPassword(e.target.value);
-                }}/>
-            <button onClick={handleSubmit}> Submit</button>
-        </div>
+        <section id={'registrationView'} className={'authForm'}>
+            <div className="container">
+                <div className="row justify-content-center ">
+                    <div className="col-lg-4 col-md-6 col-sm-6">
+                        <div className="card shadow m-3">
+                            <div className="card-title text-center border-bottom">
+                                <h2 className="p-3"> Registration </h2>
+                            </div>
+                            <div className="card-body">
+                                <form
+                                    onSubmit={handleSubmit}
+                                >
+
+                                    <div className="mb-4">
+                                        <label htmlFor="name" className="form-label">Name</label>
+                                        <input type="text" className="form-control" id="name"
+                                               onChange={e => setName(e.target.value)}/>
+
+                                    </div>
+                                    <div className="mb-4">
+                                        <label htmlFor="surname" className="form-label">Surname</label>
+                                        <input type="text" className="form-control" id="surname"
+                                               onChange={e => setSurname(e.target.value)}/>
+                                    </div>
+
+                                    <div className="mb-4">
+                                        <label htmlFor="email" className="form-label">Email</label>
+                                        <input type="text" className="form-control" id="email"
+                                               onChange={e => setEmail(e.target.value)}/>
+                                    </div>
+                                    <div className="mb-4">
+                                        <label htmlFor="password" className="form-label">Password</label>
+                                        <input type="password" className="form-control" id="password"
+                                               onChange={e => setPassword(e.target.value)}/>
+                                    </div>
+
+                                    <div className="d-grid">
+                                        <button type="submit" className="btn text-light main-bg"
+                                        >
+                                            Register
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     );
 };
