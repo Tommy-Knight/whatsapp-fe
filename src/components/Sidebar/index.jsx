@@ -5,19 +5,8 @@ import { clearSelectedMembersAction } from "../../redux/actions";
 import { connect } from "react-redux";
 import { useState } from "react";
 
-const ProfilePreview = (user) => (
-	<>
-		{user && (
-			<div id={"loggedUserPreview"} className={"d-flex align-items-center p-2 "}>
-				<img className={"m-1"} alt='avatar' src={user.avatar} style={{ width: "50px" }} />
-				<h3 className={"m-1"}>{user.Name}</h3>
-			</div>
-		)}
-	</>
-);
-
 const Sidebar = (props) => {
-	const [selectingMembers, setSelectingMembers] = useState(true);
+	const [selectingMembers, setSelectingMembers] = useState(false);
 	const [searchInput, setSearchInput] = useState("");
 	const [filteredUsers, setFilteredUsers] = useState([]);
 
@@ -73,9 +62,15 @@ const Sidebar = (props) => {
 
 	return (
 		<div id={"leftSidebar"} className={"d-flex flex-column justify-content-between"}>
-			<ProfilePreview user={props.user} />
+			{props.user && (
+				<div id={"loggedUserPreview"} className={"d-flex align-items-center p-2 "}>
+					<img className={"m-1"} alt='avatar' src={props.user.avatar} style={{ width: "50px" }} />
+					<h3 className={"m-1"}>{props.user.Name}</h3>
+				</div>
+			)}
+			{/* ########################################################### */}
 
-			<form id={"groupCreation"} className='form-inline d-flex flex-row'>
+			<div id={"groupCreation"} className='form-inline d-flex flex-row'>
 				{!selectingMembers && (
 					<input
 						className='form-control mr-sm-2'
@@ -107,9 +102,9 @@ const Sidebar = (props) => {
 						New Room?
 					</button>
 				)}
-			</form>
+			</div>
 			{/* ########################################################### */}
-			<form id={"searchUser"} className='form-inline d-flex flex-row'>
+			<div id={"searchUser"} className='form-inline d-flex flex-row'>
 				<input
 					onChange={(e) => setSearchInputFunc(e)}
 					className='form-control mr-sm-2'
@@ -120,15 +115,17 @@ const Sidebar = (props) => {
 				<button className='btn btn-outline-success my-2 my-sm-0' type='submit'>
 					Search
 				</button>
-			</form>
+			</div>
 			{/* ########################################################### */}
-			<div style={{
-                maxHeight: '550px',
-                overflowY: 'scroll',
-                border: 'none', background: 'none',
-                direction: 'rtl'
-            }}
-                 className={'d-flex flex-column justify-content-between '}>
+			<div
+				style={{
+					maxHeight: "550px",
+					overflowY: "scroll",
+					border: "none",
+					background: "none",
+					direction: "rtl",
+				}}
+				className={"d-flex flex-column justify-content-between "}>
 				{searchInput.length > 1 &&
 					filteredUsers.map((chat) => (
 						<ChatPreview selectingMembers={selectingMembers} chat={chat} />
