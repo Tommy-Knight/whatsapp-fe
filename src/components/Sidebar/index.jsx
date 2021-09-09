@@ -1,4 +1,4 @@
-import "./style.css";
+import './style.css'
 
 import ChatPreview from "../ChatPreview";
 import { clearSelectedMembersAction } from "../../redux/actions";
