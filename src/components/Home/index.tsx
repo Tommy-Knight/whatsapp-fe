@@ -5,7 +5,7 @@ import { allUsersAction, myRoomsAction, userAction } from "../../redux/actions";
 import { Dispatch } from "redux";
 import Messages from "../Messages";
 import React from "react";
-import Sidebar from "../Sidebar/Component";
+import Sidebar from "../Sidebar";
 import UserPreview from "../UserPreview";
 import { connect } from "react-redux";
 import { useEffect } from "react";
