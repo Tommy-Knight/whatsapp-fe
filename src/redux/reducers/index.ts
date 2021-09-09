@@ -25,6 +25,8 @@ const rootReducer = (
 		case "CLEAR_SELECTED_MEMBERS":
 			return { ...state, selectedMembers: [] };
 
+		case "SELECTED_ROOM":
+			return { ...state, selectedRoom: action.payload };
 		default:
 			return state;
 	}

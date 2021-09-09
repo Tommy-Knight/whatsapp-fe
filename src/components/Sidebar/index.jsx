@@ -1,7 +1,8 @@
-import './style.css'
+import "./style.css";
+
+import { clearSelectedMembersAction, selectedRoomAction } from "../../redux/actions";
 
 import ChatPreview from "../ChatPreview";
-import { clearSelectedMembersAction } from "../../redux/actions";
 import { connect } from "react-redux";
 import { useState } from "react";
 
@@ -10,16 +11,19 @@ const Sidebar = (props) => {
 	const [searchInput, setSearchInput] = useState("");
 	const [filteredUsers, setFilteredUsers] = useState([]);
 
-	const filterSearchInput = (e) => {
-		const filterAllUsers = props.allUsers.filter((user) => {
-			const searchStr = searchInput.toLowerCase();
-			const nameMatches = user.name.toLowerCase().includes(searchStr);
-			const surnameMatches = user.surname.toLowerCase().includes(searchStr);
-			return nameMatches || surnameMatches;
-		});
+	const filterSearchInput = () => {
+		if (props.allUsers) {
+			const filterAllUsers = props.allUsers.filter((user) => {
+				const searchStr = searchInput.toLowerCase();
+				const nameMatches = user.name.toLowerCase().includes(searchStr);
+				const surnameMatches = user.surname.toLowerCase().includes(searchStr);
+				return nameMatches || surnameMatches;
+			});
+			setFilteredUsers(filterAllUsers);
+		}
 		// console.log("🎈", filterAllUsers);
-		setFilteredUsers(filterAllUsers);
 	};
+
 	const setSearchInputFunc = (e) => {
 		setSearchInput(e.target.value);
 		filterSearchInput();
@@ -46,7 +50,7 @@ const Sidebar = (props) => {
 		});
 		console.log(newRoom);
 		try {
-			const response = await fetch(`${process.env.REACT_APP_BACKEND}/rooms/`, {
+			const res = await fetch(`${process.env.REACT_APP_BACKEND}/rooms/`, {
 				method: "POST",
 				credentials: "include",
 				headers: {
@@ -54,7 +58,8 @@ const Sidebar = (props) => {
 				},
 				body: newRoom,
 			});
-			console.log("🚑", response);
+			const data = await res.json();
+			if (data) props.selectedRoomDispatch(data);
 		} catch (error) {
 			console.log(error);
 		}
@@ -126,7 +131,7 @@ const Sidebar = (props) => {
 					direction: "rtl",
 				}}
 				className={"d-flex flex-column justify-content-between "}>
-				{searchInput.length > 1 &&
+				{searchInput.length > 0 &&
 					filteredUsers.map((chat) => (
 						<ChatPreview selectingMembers={selectingMembers} chat={chat} />
 					))}
@@ -137,6 +142,7 @@ const Sidebar = (props) => {
 
 const mapDispatchToProps = (dispatch) => ({
 	clearSelectedMembersDispatch: (d) => dispatch(clearSelectedMembersAction(d)),
+	selectedRoomDispatch: (d) => dispatch(selectedRoomAction(d)),
 });
 
 export default connect((s) => s, mapDispatchToProps)(Sidebar);

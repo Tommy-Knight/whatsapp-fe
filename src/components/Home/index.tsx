@@ -14,7 +14,7 @@ import { useEffect } from "react";
 
 // import { RouteComponentProps } from "react-router-dom";
 
-const Home = ({ history, userDispatch, myRoomsDispatch, allUsersDispatch, user, allUsers }: Props) => {
+const Home = ({ history, userDispatch, myRoomsDispatch, allUsersDispatch, user }: Props) => {
 	useEffect(() => {
 		const loginFetch = async () => {
 			const resp = await fetch(`${process.env.REACT_APP_BACKEND}/users/me`, {
@@ -36,26 +36,28 @@ const Home = ({ history, userDispatch, myRoomsDispatch, allUsersDispatch, user, 
 				allUsersDispatch(data.users);
 			}
 		};
-		const myRoomsFetch = async () => {
-			const resp = await fetch(`${process.env.REACT_APP_BACKEND}/rooms/${user._id}`, {
-				credentials: "include",
-			});
-			const data = await resp.json();
-			console.log(data);
-			if (resp.ok) {
-				myRoomsDispatch(data);
-			}
-		};
-		loginFetch().then();
-		allUsersFetch().then();
+
 		if (user._id) {
-			myRoomsFetch().then();
+			const myRoomsFetch = async () => {
+				const resp = await fetch(`${process.env.REACT_APP_BACKEND}/rooms/${user._id}`, {
+					credentials: "include",
+				});
+				const data = await resp.json();
+				if (resp.ok) {
+					myRoomsDispatch(data);
+					console.log(data);
+				}
+			};
+			myRoomsFetch();
 		}
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [allUsersDispatch, userDispatch, myRoomsDispatch]);
+
+		loginFetch();
+		allUsersFetch();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [user._id]);
 
 	return (
-		<Container id={'home'}>
+		<Container id={"home"}>
 			<Row>
 				<Col sm={4}>
 					<aside>

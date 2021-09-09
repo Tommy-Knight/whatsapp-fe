@@ -14,7 +14,7 @@ export const allUsersAction = (allUsers: UserInterface[]) => {
 	};
 };
 
-export const myRoomsAction = (myRooms:any) => {
+export const myRoomsAction = (myRooms: any) => {
 	return {
 		type: "MY_ROOMS",
 		payload: myRooms,
@@ -28,7 +28,14 @@ export const selectedMembersAction = (selectedMembers: any) => {
 };
 
 export const clearSelectedMembersAction = () => {
-			return {
-				type: "CLEAR_SELECTED_MEMBERS"
-			};
-		}
+	return {
+		type: "CLEAR_SELECTED_MEMBERS",
+	};
+};
+
+export const selectedRoomAction = (selectedRoom: any) => {
+	return {
+		type: "SELECTED_ROOM",
+		payload: selectedRoom,
+	};
+};

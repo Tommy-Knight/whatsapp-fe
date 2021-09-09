@@ -16,6 +16,7 @@ export const initialState = {
 	allUsers: {},
 	myRooms: [],
 	selectedMembers:[],
+	selectedRoom: {}
 };
 
 const configureStore = () =>
