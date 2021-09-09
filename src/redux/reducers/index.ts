@@ -26,6 +26,7 @@ const rootReducer = (
 			return { ...state, selectedMembers: [] };
 
 		case "SELECTED_ROOM":
+					console.log("🎃", action.payload);
 			return { ...state, selectedRoom: action.payload };
 		default:
 			return state;

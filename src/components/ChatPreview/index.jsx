@@ -11,17 +11,14 @@ const ChatPreview = ({
 	selectedRoomDispatch,
 	user,
 }) => {
-	const selectFunc = (selectedUser) => {
+	const selectFunc = () => {
 		if (selectingMembers) selectedMembersDispatch([chat]);
 		else {
 			const createRoom = async () => {
-				const newRoom = JSON.stringify({
-					name: `${user.name} and ${chat.name}`,
-					description: "",
+				const oneToOneRoom = JSON.stringify({
 					members: [user._id, chat._id],
-					roomAvatar: "",
-					roomBackground: "",
 				});
+				console.log(oneToOneRoom)
 				try {
 					const res = await fetch(`${process.env.REACT_APP_BACKEND}/rooms/`, {
 						method: "POST",
@@ -29,10 +26,11 @@ const ChatPreview = ({
 						headers: {
 							"Content-Type": "application/json",
 						},
-						body: newRoom,
+						body: oneToOneRoom,
 					});
 					const data = await res.json();
-					if (data) selectedRoomDispatch(data);
+					if (data) {selectedRoomDispatch(data)
+					console.log(data)};
 				} catch (error) {
 					console.log(error);
 				}
@@ -47,7 +45,7 @@ const ChatPreview = ({
 				<img
 					className={"m-2"}
 					onClick={() => {
-						selectFunc(chat);
+						selectFunc();
 					}}
 					id={chat._id}
 					alt='avatar'

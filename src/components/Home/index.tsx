@@ -15,44 +15,42 @@ import { useEffect } from "react";
 // import { RouteComponentProps } from "react-router-dom";
 
 const Home = ({ history, userDispatch, myRoomsDispatch, allUsersDispatch, user }: Props) => {
-	useEffect(() => {
-		const loginFetch = async () => {
-			const resp = await fetch(`${process.env.REACT_APP_BACKEND}/users/me`, {
+	
+		const myRoomsFetch = async () => {
+			const resp = await fetch(`${process.env.REACT_APP_BACKEND}/rooms/${user._id}`, {
 				credentials: "include",
 			});
-			const data = await resp.json();
 			if (resp.ok) {
-				userDispatch(data);
-			} else {
-				history.push("/login");
-			}
-		};
-		const allUsersFetch = async () => {
-			const resp = await fetch(`${process.env.REACT_APP_BACKEND}/users/`, {
-				credentials: "include",
-			});
-			const data = await resp.json();
-			if (resp.ok) {
-				allUsersDispatch(data.users);
-			}
-		};
-
-		if (user._id) {
-			const myRoomsFetch = async () => {
-				const resp = await fetch(`${process.env.REACT_APP_BACKEND}/rooms/${user._id}`, {
-					credentials: "include",
-				});
 				const data = await resp.json();
-				if (resp.ok) {
-					myRoomsDispatch(data);
-					console.log(data);
-				}
-			};
-			myRoomsFetch();
+				myRoomsDispatch(data);
+				console.log("🎈", data);
+			}
+	}
+	const loginFetch = async () => {
+		const resp = await fetch(`${process.env.REACT_APP_BACKEND}/users/me`, {
+			credentials: "include",
+		});
+		const data = await resp.json();
+		if (resp.ok) {
+			userDispatch(data);
+		} else {
+			history.push("/login");
 		}
+	};
+	const allUsersFetch = async () => {
+		const resp = await fetch(`${process.env.REACT_APP_BACKEND}/users/`, {
+			credentials: "include",
+		});
+		const data = await resp.json();
+		if (resp.ok) {
+			allUsersDispatch(data.users);
+		}
+	};
 
+	useEffect(() => {
 		loginFetch();
 		allUsersFetch();
+		myRoomsFetch();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [user._id]);
 

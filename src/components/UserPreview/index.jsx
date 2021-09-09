@@ -6,24 +6,20 @@ import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
 const UserPreview = (props) => {
-	const [isSingleUser, setIsSingleUser] = useState(null);
-	useEffect(() => {
-		setIsSingleUser(true);
-	}, []);
+	// const [isSingleUser, setIsSingleUser] = useState(null);
+	// useEffect(() => {
+	// if (setIsSingleUser(true)) setIsSingleUser(true);
+
+	// }, []);
 	return (
-        
 		<section id={"userPreview"}>
 			<Row>
 				<Col md={3}>
 					<div className={"d-flex justify-content-center"}>
-						{isSingleUser ? (
-							<img id={"userChatPic"} src='https://via.placeholder.com/100' alt={"userChatPic"} />
-						) : (
-							<img id={"groupChatPic"} src={"/"} alt={"groupChatPic"} />
-						)}
+						<img id={"userChatPic"} src='https://via.placeholder.com/100' alt={"userChatPic"} />
 					</div>
 				</Col>
-				<Col md={9}>{isSingleUser && <h1 id={"userNickname"}>{props.user.name}</h1>}</Col>
+				<Col md={9}>{props.selectedRoom && <h1 id={"userNickname"}>{}</h1>}</Col>
 			</Row>
 		</section>
 	);
