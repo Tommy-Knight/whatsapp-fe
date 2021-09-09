@@ -4,7 +4,7 @@
     padding-bottom: 5px;
 }
 
-#leftSidebar, #leftSidebar > * {
+#leftSidebar{
     height: 100%
 }
 
@@ -33,6 +33,7 @@
 }
 
 #groupCreation{
+
     padding: 10px;
     background: black;
 }

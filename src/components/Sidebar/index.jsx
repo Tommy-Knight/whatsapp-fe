@@ -122,7 +122,13 @@ const Sidebar = (props) => {
 				</button>
 			</form>
 			{/* ########################################################### */}
-			<div>
+			<div style={{
+                maxHeight: '550px',
+                overflowY: 'scroll',
+                border: 'none', background: 'none',
+                direction: 'rtl'
+            }}
+                 className={'d-flex flex-column justify-content-between '}>
 				{searchInput.length > 1 &&
 					filteredUsers.map((chat) => (
 						<ChatPreview selectingMembers={selectingMembers} chat={chat} />
