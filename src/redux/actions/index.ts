@@ -26,3 +26,9 @@ export const selectedMembersAction = (selectedMembers: any) => {
 		payload: selectedMembers,
 	};
 };
+
+export const clearSelectedMembersAction = () => {
+			return {
+				type: "CLEAR_SELECTED_MEMBERS"
+			};
+		}

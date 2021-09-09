@@ -12,7 +12,7 @@ import { useEffect } from "react";
 
 // import { RouteComponentProps } from "react-router-dom";
 
-const Home = ( { history, userDispatch, myRoomsDispatch, allUsersDispatch, user }: Props) => {
+const Home = ({ history, userDispatch, myRoomsDispatch, allUsersDispatch, user }: Props) => {
 	useEffect(() => {
 		const loginFetch = async () => {
 			const resp = await fetch(`${process.env.REACT_APP_BACKEND}/users/me`, {
@@ -46,8 +46,10 @@ const Home = ( { history, userDispatch, myRoomsDispatch, allUsersDispatch, user 
 		};
 		loginFetch().then();
 		allUsersFetch().then();
-		myRoomsFetch().then();
-	// eslint-disable-next-line react-hooks/exhaustive-deps
+		if (user._id) {
+			myRoomsFetch().then();
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [allUsersDispatch, userDispatch, myRoomsDispatch]);
 
 	return (
@@ -72,6 +74,6 @@ const Home = ( { history, userDispatch, myRoomsDispatch, allUsersDispatch, user 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
 	userDispatch: (user: UserInterface) => dispatch(userAction(user)),
 	allUsersDispatch: (allUsers: UserInterface[]) => dispatch(allUsersAction(allUsers)),
-	myRoomsDispatch: (myRooms: any) => dispatch(myRoomsAction(myRooms))
+	myRoomsDispatch: (myRooms: any) => dispatch(myRoomsAction(myRooms)),
 });
-export default connect(s=>s, mapDispatchToProps)(Home);
+export default connect((s) => s, mapDispatchToProps)(Home);

@@ -1,28 +1,25 @@
 import "./style.css";
 
-import { useEffect, useState } from "react";
-
 import { connect } from "react-redux";
 import { selectedMembersAction } from "../../redux/actions";
 
 const ChatPreview = ({
-	user,
 	chat,
 	selectingMembers,
-	selectedMembersDispatch,
-	clearSelectedMembersDispatch,
+	selectedMembersDispatch
 }) => {
-
-	const selectMemberFunc = (selectedUser) => {
-		if (selectingMembers)selectedMembersDispatch([chat]);
-		
-	};
 	
+	const selectMemberFunc = (selectedUser) => {
+		if (selectingMembers) selectedMembersDispatch([chat]);
+	};
+
 	return (
 		<>
 			<div>
 				<img
-					onClick={() => selectMemberFunc(chat)}
+					onClick={() => {
+						selectMemberFunc(chat);
+					}}
 					id={chat._id}
 					alt='avatar'
 					src={chat.avatar}
