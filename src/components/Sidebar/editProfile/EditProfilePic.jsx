@@ -46,7 +46,7 @@ function EditProfilePic(props) {
   
         <Modal id="profileModal" show={show} onHide={handleClose} animation={false}>
           <Modal.Header id="modal-heading"  closeButton>
-            <Modal.Title>Update Profile Picture</Modal.Title>
+            <Modal.Title><span style={{color: "#E9F200", fontSize:"larger"}}>{props.user.name}'s</span> Profile Picture</Modal.Title>
           </Modal.Header>
           <Modal.Body className="text-center">
                 <img 
