@@ -5,6 +5,7 @@ import { clearSelectedMembersAction, selectedRoomAction } from "../../redux/acti
 import ChatPreview from "../ChatPreview";
 import { connect } from "react-redux";
 import { useState } from "react";
+import {Col, Row} from "react-bootstrap";
 
 const Sidebar = (props) => {
 	const [selectingMembers, setSelectingMembers] = useState(false);
@@ -50,7 +51,7 @@ const Sidebar = (props) => {
 			roomAvatar: "https://image.flaticon.com/icons/png/512/1527/1527842.png",
 			roomBackground: "",
 		});
-		console.log(newRoom);
+
 		try {
 			const res = await fetch(`${process.env.REACT_APP_BACKEND}/rooms/`, {
 				method: "POST",
@@ -71,24 +72,30 @@ const Sidebar = (props) => {
 		<div id={"leftSidebar"} className={"d-flex flex-column justify-content-start"}>
 			{props.user && (
 				<div id={"loggedUserPreview"} className={"d-flex align-items-center p-2 "}>
-					<img className={"m-1"} alt='avatar' src={props.user.avatar} style={{ width: "50px" }} />
+					<img className={"m-1"} alt='avatar' src={props.user.avatar}  />
 					<h3 className={"m-1"}>{props.user.Name}</h3>
 				</div>
 			)}
 			{/* ########################################################### */}
 
 			<div id={"groupCreation"} className='form-inline d-flex flex-row'>
+				<Row>
+					<Col md={12}>
+
+
 				{!selectingMembers && (
 					<input
-						className='form-control mr-sm-2'
+						className='form-control m-1'
 						type='search'
 						placeholder='Chat Name'
 						aria-label='Search'
 					/>
 				)}
+					</Col>
+					<Col md={12}>
 				{selectingMembers && "Select friends now" && (
 					<button
-						className='btn btn-outline-success my-2 my-sm-0'
+						className='btn btn-outline-success m-1'
 						type='submit'
 						onClick={() => clearSelectingMembers()}>
 						No Thanks
@@ -96,19 +103,21 @@ const Sidebar = (props) => {
 				)}
 				{selectingMembers ? (
 					<button
-						className='btn btn-outline-success my-2 my-sm-0'
+						className='btn btn-outline-success m-1'
 						type='submit'
 						onClick={() => createRoom()}>
 						Publish Room
 					</button>
 				) : (
 					<button
-						className='btn btn-outline-success my-2 my-sm-0'
+						className='btn btn-outline-success m-1'
 						type='submit'
 						onClick={() => selectMembers()}>
 						New Room?
 					</button>
 				)}
+					</Col>
+				</Row>
 			</div>
 			{/* ########################################################### */}
 			<div id={"searchUser"} className='form-inline d-flex flex-row'>

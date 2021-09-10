@@ -8,7 +8,6 @@
     height: 100%
 }
 
-
 #leftSidebar > *{
     font-weight: bolder;
     font-size: 18px;
@@ -27,6 +26,7 @@
     background: var(--primary );
     border-radius: 30px
 }
+
 #searchUser {
     padding: 15px;
  background: var(--secondary);
@@ -47,6 +47,7 @@
     border-radius: 50px;
     background: white;
 }
+
 #searchUser .btn:hover,
 #groupCreation .btn:hover{
     background: var(--primary );
@@ -58,6 +59,8 @@
 }
 
 #loggedUserPreview img {
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     border: 3px solid white;
 }
