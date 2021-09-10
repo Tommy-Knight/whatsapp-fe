@@ -24,7 +24,9 @@ const Messages = (props) => {
 			message: messageText,
 			sender: props.user,
 		};
-		socket.emit("sendMessage", {fullMessage} );
+		const roomId = props.selectedRoom._id
+		socket.emit("sendMessage", fullMessage, roomId );
+						setChatHistory((chatHistory) => [...chatHistory, fullMessage]);
 	};
 
 	const fetchChatHistory = async () => {
@@ -36,11 +38,10 @@ const Messages = (props) => {
 			if (resp.ok) {
 				const data = await resp.json();
 				console.log("chathistory🎆", data);
-				setChatHistory(chatHistory => [...chatHistory, ...data]);
+				setChatHistory(data);
 			}
 		}
 	};
-
 
 	useEffect(() => {
 		fetchChatHistory();
@@ -50,12 +51,8 @@ const Messages = (props) => {
 		socket.on("loggedin", () => {
 			console.log("🎨 Successfully logged in!");
 			socket.on("message", (reply) => {
-				dispatch(refresh)
-				const oldHistory = chatHistory
-				const newMessage = reply.fullMessage;
-				const newHistory = oldHistory.concat(newMessage)
-				setChatHistory((chatHistory) => [...chatHistory, ...newHistory]);
-				console.log(newHistory, "🎍reply", reply.fullMessage);
+				setChatHistory((chatHistory) => [...chatHistory, reply.fullMessage]);
+				// console.log(newHistory, "🎍", reply.fullMessage);
 			});
 		});
 		socket.on("newConnection", () => {
