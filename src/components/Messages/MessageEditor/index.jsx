@@ -12,7 +12,6 @@ const MessageEditor = ({ sendMessageFunction  }) => {
         e.preventDefault();
         console.log( 'in MessageEditor component message is ', message)
         sendMessageFunction( message )
-        setMessage("");
     };
 
     const updateMessageContent = () => {
