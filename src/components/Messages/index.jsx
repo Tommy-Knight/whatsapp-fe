@@ -57,7 +57,7 @@ const Messages = (props) => {
 		//FIX max: that is shit, my shit...
 		 setInterval(() =>{
 			 fetchChatHistory();
-		 }, 500)
+		 }, 1500)
 		emitUserIsConnecting( props.user.id )
 		newMessageEventHandler()
 		/*
