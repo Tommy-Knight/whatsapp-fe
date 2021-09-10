@@ -7,6 +7,7 @@
 .chatPreview{
     color: black;
     background: white;
+    margin: 5px !important;
 }
 .chatPreview .partial-msg{
     font-weight: lighter;
