@@ -5,6 +5,12 @@ import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { io } from "socket.io-client";
 
+import "quill/dist/quill.snow.css";
+import { useQuill } from "react-quilljs";
+
+import Parser from 'html-react-parser';
+
+
 const MessageRow = ({ position }) => {
 	position = position === "start" || position === "end" ? position : "";
 
@@ -24,8 +30,9 @@ const Messages = (props) => {
 	const [loggedin, setLoggedIn] = useState(false);
 
 	const [chatHistory, setChatHistory] = useState([]);
-
 	const [onlineUsers, setOnlineUsers] = useState([]);
+
+	const { quill, quillRef } = useQuill();
 
 	const ADDRESS = process.env.REACT_APP_BACKEND;
 	const socket = io(ADDRESS, { transports: ["websocket"] });
@@ -85,8 +92,21 @@ const Messages = (props) => {
 		};
 	}, []);
 
+	useEffect(() => {
+		if (quill) {
+			quill.on('text-change', () => {
+
+				console.log(quill.getText()); // Get text only
+				console.log(quill.getContents()); // Get delta contents
+				console.log(quill.root.innerHTML); // Get innerHTML using quill
+
+			});
+		}
+	}, [quill]);
+
+
 	return (
-		<>
+		<div id={'#messages'} className={'d-flex flex-column align-items-end'}>
 			<div style={{ width: "100%", height: "100%" }}>
 				{messages
 					.map((msg) => (
@@ -97,12 +117,16 @@ const Messages = (props) => {
 					))
 					.reverse()}
 			</div>
-
+			{/*
 			<form onSubmit={(e) => setMessageFunc(e)}>
-				<input placeholder='enter message'></input>
+				<input placeholder='enter message'/>
 				<button type='submit'>send</button>
 			</form>
-		</>
+			*/}
+			<div className={'editor-wrapper '} >
+				<div ref={quillRef}/>
+			</div>
+		</div>
 	);
 };
 
