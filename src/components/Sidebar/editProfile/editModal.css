@@ -1,0 +1,35 @@
+.my-modal {
+    width: 60vw;   /* Occupy the 90% of the screen width */
+    max-width: 90vw;
+
+}
+
+.modal-Body{
+    overflow-y: scroll;
+}
+
+.savebtn{
+    width: 80px;
+    background-color: #0A66C2;
+}
+
+#editbtn{
+    width: 40px;
+    height: 40px;
+}
+
+#editbtn:hover{
+    border: 1px transparent grey;
+    border-radius: 50%;
+    background-color: #EBEBEB;
+   
+}
+
+svg{
+    display: inline!important;
+}
+
+#pdf-icon{
+    height: 25px;
+    width: 40px;
+}
