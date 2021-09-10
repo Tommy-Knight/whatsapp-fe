@@ -1,0 +1,12 @@
+.form-control{
+    border:2px solid grey!important;
+}
+
+.form-control:hover{
+
+    border:3px solid rgb(121, 116, 116)!important;
+}
+
+a{
+    color: #0a66c2!important;
+}
