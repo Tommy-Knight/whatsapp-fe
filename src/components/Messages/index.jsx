@@ -1,9 +1,10 @@
 import "./style.css";
 
+import { connect, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 
-import { connect } from "react-redux";
 import { io } from "socket.io-client";
+import {refresh} from "../../redux/actions/index"
 
 const Messages = (props) => {
 	const [chatHistory, setChatHistory] = useState([]);
@@ -11,6 +12,7 @@ const Messages = (props) => {
 
 	const ADDRESS = process.env.REACT_APP_BACKEND;
 	const socket = io(ADDRESS, { transports: ["websocket"] });
+  const dispatch = useDispatch();
 
 	const messageTextFunc = (e) => {
 		setMessageText(e.target.value);
@@ -48,6 +50,7 @@ const Messages = (props) => {
 		socket.on("loggedin", () => {
 			console.log("🎨 Successfully logged in!");
 			socket.on("message", (reply) => {
+				dispatch(refresh)
 				const oldHistory = chatHistory
 				const newMessage = reply.fullMessage;
 				const newHistory = oldHistory.concat(newMessage)
@@ -78,11 +81,11 @@ const Messages = (props) => {
 
 	return (
 		<>
-			<div style={{ width: "100%", height: "100%" }}>
-				{chatHistory && chatHistory.map((msg) => <MessageRow key={Math.random()} msg={msg} />).reverse()}
+			<div style={{ width: "100%", height: "70%vh" }}>
+				{chatHistory && chatHistory.map((msg) => <MessageRow key={Math.random()} msg={msg} />)}
 			</div>
 
-			<form onSubmit={(e) => sendMessage(e)}>
+			<form  onSubmit={(e) => sendMessage(e)}>
 				<input
 					onChange={(e) => messageTextFunc(e)}
 					name='input'

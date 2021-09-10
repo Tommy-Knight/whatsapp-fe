@@ -26,8 +26,14 @@ const rootReducer = (
 			return { ...state, selectedMembers: [] };
 
 		case "SELECTED_ROOM":
-					// console.log("🕶", action.payload);
+			// console.log("🕶", action.payload);
 			return { ...state, selectedRoom: action.payload };
+
+		case "REFRESH":
+			return {
+				...state,
+				refresher: Math.random(),
+			};
 		default:
 			return state;
 	}

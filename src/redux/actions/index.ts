@@ -39,3 +39,6 @@ export const selectedRoomAction = (selectedRoom: any) => {
 		payload: selectedRoom,
 	};
 };
+export const refresh = () => ({
+	type: "REFRESH",
+});
