@@ -11,7 +11,6 @@ const Sidebar = (props) => {
 	const [selectingMembers, setSelectingMembers] = useState(false);
 	const [searchInput, setSearchInput] = useState("");
 	const [filteredUsers, setFilteredUsers] = useState([]);
-
 	const filterSearchInput = () => {
 		if (props.allUsers) {
 			const filterAllUsers = props.allUsers.filter((user) => {
@@ -24,22 +23,18 @@ const Sidebar = (props) => {
 		}
 		// console.log("🎈", filterAllUsers);
 	};
-
 	const setSearchInputFunc = (e) => {
 		setSearchInput(e.target.value);
 		filterSearchInput();
 	};
-
 	const selectMembers = () => {
 		setSelectingMembers(selectingMembers ? false : true);
 	};
-
 	const clearSelectingMembers = () => {
 		setSelectingMembers(false);
 		setSearchInput("");
 		props.clearSelectedMembersDispatch();
 	};
-
 	const createRoom = async () => {
 		setSelectingMembers(false);
 		const newRoom = JSON.stringify({
@@ -67,7 +62,6 @@ const Sidebar = (props) => {
 			console.log(error);
 		}
 	};
-
 	return (
 		<div id={"leftSidebar"} className={"d-flex flex-column justify-content-start"}>
 			{props.user && (
@@ -80,18 +74,6 @@ const Sidebar = (props) => {
 
 			<div id={"groupCreation"} className='form-inline d-flex flex-row'>
 				<Row>
-					<Col md={12}>
-
-
-				{!selectingMembers && (
-					<input
-						className='form-control m-1'
-						type='search'
-						placeholder='Chat Name'
-						aria-label='Search'
-					/>
-				)}
-					</Col>
 					<Col md={12}>
 				{selectingMembers && "Select friends now" && (
 					<button
@@ -134,8 +116,6 @@ const Sidebar = (props) => {
 				style={{
 					maxHeight: "550px",
 					overflowY: "scroll",
-					border: "none",
-					background: "none",
 					direction: "rtl",
 				}}
 				className={"d-flex flex-column justify-content-between "}>
@@ -149,7 +129,7 @@ const Sidebar = (props) => {
 					))}
 				{searchInput <= 0 &&
 					props.myRooms.map((room) => (
-						<div key={room._id} id={"chatPreview"} style={{ margin: "2px" }}>
+						<div key={room._id} className={"chatPreview"} style={{ margin: "2px" }}>
 							<div className={"d-flex flex-row align-items-center"}>
 								<img
 									className={"m-2"}

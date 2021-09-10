@@ -1,3 +1,5 @@
+
+
 import "./style.css";
 
 import {useEffect, useState} from "react";
@@ -8,30 +10,30 @@ import {io} from "socket.io-client";
 import MessageEditor from "./MessageEditor";
 import MessageRows from "./MessageRows";
 
-
-
-
 const Messages = (props) => {
-    const messages = [{}, {}, {}];
-    const [loggedIn, setLoggedIn] = useState(false);
+	const [messages, setMessages] = useState([]);
     const [chatHistory, setChatHistory] = useState([]);
 
     const ADDRESS = process.env.REACT_APP_BACKEND;
     const socket = io(ADDRESS, {transports: ["websocket"]});
 
 	const liveSendMessage = ( message ) => {
-		if (loggedIn) {
-			const newMessage = {
+			const messageObj = {
 				text: message,
 				sender: props.user,
 				timestamp: Date.now(),
 				id: socket.id,
 			};
-			socket.emit("sendmessage", newMessage);
-			setChatHistory([...chatHistory, newMessage]);
-
-		}
+			socket.emit("sendmessage", messageObj );
+			setChatHistory([...chatHistory, messageObj ]);
 	}
+	const newMessageEventHandler = () => {
+		socket.on("message", (messageObj) => {
+			setChatHistory((chatHistory) => [...chatHistory, messageObj]);
+			console.log(chatHistory, "🎍", chatHistory);
+		});
+	}
+
 	const fetchChatHistory = async () => {
 		if (props.selectedRoom._id) {
 			const resp = await fetch(
@@ -50,26 +52,18 @@ const Messages = (props) => {
 			socket.emit("login", userID );
 		});
 	}
-	const newMessageEventHandler = () => {
-		socket.on("message", (reply) => {
-			setChatHistory((chatHistory) => [...chatHistory, reply.fullMessage]);
-			console.log(chatHistory, "🎍", reply.fullMessage);
-		});
-	}
-	const loggedInEventHandler = () => {
-		socket.on("loggedin", () => {
-			newMessageEventHandler()
-		});
-	}
+
+
 	const aNewUserEventHandler = () => {
 		socket.on("newConnection", () => {
 			//TODO implement counter ?
 		});
 	}
 	useEffect(() => {
+
 		fetchChatHistory();
 		emitUserIsConnecting( props.user.id )
-		loggedInEventHandler();
+		newMessageEventHandler()
 		aNewUserEventHandler();
 		return () => {
 			socket.disconnect();
@@ -80,12 +74,12 @@ const Messages = (props) => {
     return (
         <div id={'messages'} className={'d-flex flex-column align-items-end'}>
             <div style={{width: "100%", height: "100%"}}>
-                <MessageRows messages={ messages }/>
+                <MessageRows messages={ chatHistory } user={props.user}/>
             </div>
             <MessageEditor sendMessageFunction={liveSendMessage}/>
         </div>
-    );
-};
+    )}
+
 
 
 

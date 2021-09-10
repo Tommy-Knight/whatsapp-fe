@@ -10,6 +10,7 @@ const MessageEditor = ({ sendMessageFunction  }) => {
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
+        console.log( 'in MessageEditor component message is ', message)
         sendMessageFunction( message )
         setMessage("");
     };

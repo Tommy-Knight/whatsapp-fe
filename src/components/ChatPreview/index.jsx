@@ -3,6 +3,7 @@ import "./style.css";
 import { selectedMembersAction, selectedRoomAction } from "../../redux/actions";
 
 import { connect } from "react-redux";
+import {useState} from "react";
 
 const ChatPreview = ({
 	chat,
@@ -11,7 +12,10 @@ const ChatPreview = ({
 	selectedRoomDispatch,
 	user,
 }) => {
+	const [selected, setSelected] = useState(false);
+
 	const selectFunc = () => {
+		setSelected( true )
 		if (selectingMembers) selectedMembersDispatch([chat]);
 		else {
 			const createRoom = async () => {
@@ -32,9 +36,9 @@ const ChatPreview = ({
 					});
 					const data = await res.json();
 					if (data) {selectedRoomDispatch(data)
-					console.log(data)};
+					console.log(data)}
 				} catch (error) {
-					console.log(error);
+					console.log(error)
 				}
 			};
 			createRoom();
@@ -42,7 +46,7 @@ const ChatPreview = ({
 	};
 
 	return (
-		<div className={"chatPreview mt-2 mx-1"}>
+		<div className={`chatPreview mt-2 mx-1 ${selected ? 'selected' : 'notSelected'} `}>
 			<div className={"d-flex flex-row align-items-center"}>
 				<img
 					className={"m-2"}
@@ -52,7 +56,6 @@ const ChatPreview = ({
 					id={chat._id}
 					alt='avatar'
 					src={chat.avatar}
-					style={{ width: "50px" }}
 				/>
 				<div className={"d-flex flex-column align-items-left justify-items-center"}>
 					<span> {chat.name} </span>
