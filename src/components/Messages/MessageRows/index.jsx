@@ -3,7 +3,6 @@ import './style.css'
 import Parser from "html-react-parser";
 
 const MessageRow = ({position, content} = {}) => {
-    position = position === "start" || position === "end" ? position : "";
     return (
         <div
             className={`d-flex justify-content-${position}`}
@@ -15,7 +14,8 @@ const MessageRow = ({position, content} = {}) => {
     );
 };
 
-const MessageRows = ({messages = [], user}) => {
+const MessageRows = ({messages, user}) => {
+    console.log()
     return (
         <div id={'msgContainer'}
              style={{
@@ -30,10 +30,16 @@ const MessageRows = ({messages = [], user}) => {
              }}
         >
 
+            {
+                (()=>{
+                    console.log( 'messages: ', messages )
+                    return ''
+                })()
+            }
             {messages.map((msg) => (
                 <MessageRow
                     key={Math.random()}
-                    position={msg.sender === user ? "end" : "start"}
+                    position={msg.sender._id === user._id ? "start" :  "end"}
                     content={msg.message}
                 />
             )).reverse()

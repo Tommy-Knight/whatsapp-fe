@@ -22,13 +22,10 @@ const Messages = (props) => {
 				sender: props.user,
 			};
 			socket.emit("sendMessage", messageObj, props.selectedRoom._id );
-			setChatHistory([...chatHistory, () => messageObj ]);
+			setChatHistory((chatHistory) => [...chatHistory, messageObj]);
 	}
 	const newMessageEventHandler = () => {
-		socket.on("message", (messageObj) => {
-			setChatHistory((chatHistory) => [...chatHistory, messageObj]);
-			console.log(chatHistory, "🎍", chatHistory);
-		});
+
 	}
 
 	const fetchChatHistory = async () => {
@@ -56,10 +53,20 @@ const Messages = (props) => {
 		});
 	}
 	useEffect(() => {
-
 		fetchChatHistory();
+		//FIX max: that is shit, my shit...
+		 setInterval(() =>{
+			 fetchChatHistory();
+		 }, 500)
 		emitUserIsConnecting( props.user.id )
 		newMessageEventHandler()
+		/*
+		socket.on("message",
+			(messageObj) => {
+				console.log('message received')
+				setChatHistory((chatHistory) => [...chatHistory, messageObj]);
+
+			}); */
 		aNewUserEventHandler();
 		return () => {
 			socket.disconnect();
