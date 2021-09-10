@@ -22,7 +22,7 @@ const MessageRows = ({messages = [],  user}) => {
                 <MessageRow
                     key={Math.random()}
                     position={msg.sender === user ? "end" : "start"}
-                    content={ msg.text }
+                    content={ msg.message }
                 />
             ))
                 }

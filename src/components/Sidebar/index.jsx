@@ -26,18 +26,22 @@ const Sidebar = (props) => {
 		}
 		// console.log("🎈", filterAllUsers);
 	};
+
 	const setSearchInputFunc = (e) => {
 		setSearchInput(e.target.value);
 		filterSearchInput();
 	};
+
 	const selectMembers = () => {
 		setSelectingMembers(selectingMembers ? false : true);
 	};
+
 	const clearSelectingMembers = () => {
 		setSelectingMembers(false);
 		setSearchInput("");
 		props.clearSelectedMembersDispatch();
 	};
+
 	const createRoom = async () => {
 		setSelectingMembers(false);
 		const newRoom = JSON.stringify({
@@ -65,12 +69,11 @@ const Sidebar = (props) => {
 			console.log(error);
 		}
 	};
-
 	return (
 		<div id={"leftSidebar"} className={"d-flex flex-column justify-content-start"}>
 			{props.user && (
 				<div id={"loggedUserPreview"} className={"d-flex align-items-center p-2 "}>
-					{/* <img 
+					{/* <img
 					className={"m-1"} alt='avatar' src={props.user.avatar}  />
 					 */}
 					 <EditProfilePic/>
@@ -129,10 +132,6 @@ const Sidebar = (props) => {
 					border: "none"
 				}}
 				className={"d-flex flex-column justify-content-between "}>
-				{searchInput.length > 0 &&
-					filteredUsers.map((chat) => (
-						<ChatPreview selectingMembers={selectingMembers} chat={chat} />
-					))}
 				{searchInput.length > 0 &&
 					filteredUsers.map((chat) => (
 						<ChatPreview selectingMembers={selectingMembers} chat={chat} />
