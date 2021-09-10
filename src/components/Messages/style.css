@@ -1,4 +1,4 @@
-.message {
+#messages .message {
     min-width: 250px;
     max-width: 600px;
     padding: 10px;
@@ -9,21 +9,25 @@
     border: 2px solid var(--secondary);
     outline: 5px solid white;
 }
-.message.start {
+#messages .message.start {
     border-radius: 15px 0 15px 0
 
 }
-.message.end {
+#messages .message.end {
     border-radius: 0 15px 0 15px
 
 }
 
-.editor-wrapper{
+#messages .editor-wrapper{
     margin-top: 10px;
     background: white;
-    max-width: 75%;
+    max-width: 100%;
     border: 5px solid var(--secondary);
     border-radius: 0 15px 0 15px
 }
-
+#messages button[type="submit"]{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%
+}
 
