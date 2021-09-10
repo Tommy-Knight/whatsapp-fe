@@ -21,8 +21,8 @@ const Messages = (props) => {
 				message: message,
 				sender: props.user,
 			};
-			socket.emit("sendmessage", messageObj, props.selectedRoom._id );
-			setChatHistory([...chatHistory, messageObj ]);
+			socket.emit("sendMessage", messageObj, props.selectedRoom._id );
+			setChatHistory([...chatHistory, () => messageObj ]);
 	}
 	const newMessageEventHandler = () => {
 		socket.on("message", (messageObj) => {
