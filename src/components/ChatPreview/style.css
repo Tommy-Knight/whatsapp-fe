@@ -1,0 +1,20 @@
+.chatPreview img{
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    border: 2px solid white;
+}
+.chatPreview{
+    color: black;
+    background: white;
+}
+.chatPreview .partial-msg{
+    font-weight: lighter;
+    font-size: 16px;
+    color: var( --primary );
+}
+
+.chatPreview.selected{
+    color: white;
+    background-color: var(--secondary)
+}

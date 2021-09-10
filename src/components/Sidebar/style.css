@@ -1,0 +1,65 @@
+#leftSidebar {
+
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#leftSidebar{
+    height: 100%
+}
+
+#leftSidebar > *{
+    font-weight: bolder;
+    font-size: 18px;
+    color: var(--secondary);
+    margin: 5px;
+    border: 5px solid black;
+    background: var(--primary );
+    border-radius: 10px
+}
+
+#leftSidebar #loggedUserPreview{
+    color: white;
+    margin: 5px;
+    border: 5px solid var(--secondary);
+    outline: 5px solid var(--primary);
+    background: var(--primary );
+    border-radius: 30px
+}
+
+#searchUser {
+    padding: 15px;
+ background: var(--secondary);
+}
+
+#groupCreation{
+
+    padding: 10px;
+    background: black;
+}
+
+#searchUser .btn,
+#groupCreation .btn{
+    margin: 5px;
+    margin-left: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 50px;
+    background: white;
+}
+
+#searchUser .btn:hover,
+#groupCreation .btn:hover{
+    background: var(--primary );
+}
+
+#loggedUserPreview h3 {
+    padding: 5px;
+}
+
+#loggedUserPreview img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 3px solid white;
+}

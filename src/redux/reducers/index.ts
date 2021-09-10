@@ -1,15 +1,42 @@
-import {initialState} from "../store"
+import { UserInterface } from "../../types";
+import { initialState } from "../store";
 
-const rootReducer = (state = initialState, action: any) => {
-    switch (action.type) {
-        case "TEST":
-            return {
-                ...state,
-                testRandomNumber: Math.random(),
-            }
-        default:
-            return state
-    }
-}
+const rootReducer = (
+	state = initialState,
+	action: { type: string; payload: UserInterface | any }
+) => {
+	switch (action.type) {
+		case "USER":
+			return { ...state, user: action.payload };
 
-export default rootReducer
+		case "ALL_USERS":
+			return { ...state, allUsers: action.payload };
+
+		case "MY_ROOMS":
+			return { ...state, myRooms: action.payload };
+
+		case "SELECTED_MEMBERS":
+			const membersArray = [...state.selectedMembers];
+			const combineArrays = membersArray.concat(action.payload);
+			const newArray = combineArrays.filter((item, pos) => combineArrays.indexOf(item) === pos);
+			// console.log("🎃", membersArray, "🎪", newArray);
+			return { ...state, selectedMembers: newArray };
+
+		case "CLEAR_SELECTED_MEMBERS":
+			return { ...state, selectedMembers: [] };
+
+		case "SELECTED_ROOM":
+			// console.log("🕶", action.payload);
+			return { ...state, selectedRoom: action.payload };
+
+		case "REFRESH":
+			return {
+				...state,
+				refresher: Math.random(),
+			};
+		default:
+			return state;
+	}
+};
+
+export default rootReducer;
