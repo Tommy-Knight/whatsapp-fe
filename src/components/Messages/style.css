@@ -9,7 +9,6 @@
     border: 2px solid var(--secondary);
     outline: 5px solid white;
 }
-
 .message.start {
     border-radius: 15px 0 15px 0
 
@@ -18,4 +17,13 @@
     border-radius: 0 15px 0 15px
 
 }
+
+.editor-wrapper{
+    margin-top: 10px;
+    background: white;
+    max-width: 75%;
+    border: 5px solid var(--secondary);
+    border-radius: 0 15px 0 15px
+}
+
 

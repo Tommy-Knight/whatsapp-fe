@@ -42,7 +42,7 @@ const ChatPreview = ({
 	};
 
 	return (
-		<div id={"chatPreview"}>
+		<div className={"chatPreview mt-2 mx-1"}>
 			<div className={"d-flex flex-row align-items-center"}>
 				<img
 					className={"m-2"}
