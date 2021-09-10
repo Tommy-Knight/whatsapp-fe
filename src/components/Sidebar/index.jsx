@@ -13,6 +13,7 @@ const Sidebar = (props) => {
 	const [selectingMembers, setSelectingMembers] = useState(false);
 	const [searchInput, setSearchInput] = useState("");
 	const [filteredUsers, setFilteredUsers] = useState([]);
+
 	const filterSearchInput = () => {
 		if (props.allUsers) {
 			const filterAllUsers = props.allUsers.filter((user) => {
@@ -124,6 +125,8 @@ const Sidebar = (props) => {
 					maxHeight: "550px",
 					overflowY: "scroll",
 					direction: "rtl",
+					background: "none",
+					border: "none"
 				}}
 				className={"d-flex flex-column justify-content-between "}>
 				{searchInput.length > 0 &&

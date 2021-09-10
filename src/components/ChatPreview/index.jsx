@@ -46,10 +46,9 @@ const ChatPreview = ({
 	};
 
 	return (
-		<div className={`chatPreview mt-2 mx-1 ${selected ? 'selected' : 'notSelected'} `}>
+		<div className={`chatPreview  ${selected ? 'selected' : 'notSelected'} `}>
 			<div className={"d-flex flex-row align-items-center"}>
-				<img
-					className={"m-2"}
+				<img className={"m-2"}
 					onClick={() => {
 						selectFunc();
 					}}
