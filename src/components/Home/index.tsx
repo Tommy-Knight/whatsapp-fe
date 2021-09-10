@@ -15,23 +15,24 @@ import { useEffect } from "react";
 // import { RouteComponentProps } from "react-router-dom";
 
 const Home = ({ history, userDispatch, myRoomsDispatch, allUsersDispatch, user }: Props) => {
-	
-		const myRoomsFetch = async () => {
+	const myRoomsFetch = async () => {
+		if (user._id) {
 			const resp = await fetch(`${process.env.REACT_APP_BACKEND}/rooms/${user._id}`, {
 				credentials: "include",
 			});
 			if (resp.ok) {
 				const data = await resp.json();
 				myRoomsDispatch(data);
-				console.log("🎈", data);
+				// console.log("🎈", data);
 			}
-	}
+		}
+	};
 	const loginFetch = async () => {
 		const resp = await fetch(`${process.env.REACT_APP_BACKEND}/users/me`, {
 			credentials: "include",
 		});
-		const data = await resp.json();
 		if (resp.ok) {
+			const data = await resp.json();
 			userDispatch(data);
 		} else {
 			history.push("/login");
@@ -41,8 +42,8 @@ const Home = ({ history, userDispatch, myRoomsDispatch, allUsersDispatch, user }
 		const resp = await fetch(`${process.env.REACT_APP_BACKEND}/users/`, {
 			credentials: "include",
 		});
-		const data = await resp.json();
 		if (resp.ok) {
+			const data = await resp.json();
 			allUsersDispatch(data.users);
 		}
 	};

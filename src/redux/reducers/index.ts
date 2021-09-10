@@ -19,14 +19,14 @@ const rootReducer = (
 			const membersArray = [...state.selectedMembers];
 			const combineArrays = membersArray.concat(action.payload);
 			const newArray = combineArrays.filter((item, pos) => combineArrays.indexOf(item) === pos);
-			console.log("🎃", membersArray, "🎪", newArray);
+			// console.log("🎃", membersArray, "🎪", newArray);
 			return { ...state, selectedMembers: newArray };
 
 		case "CLEAR_SELECTED_MEMBERS":
 			return { ...state, selectedMembers: [] };
 
 		case "SELECTED_ROOM":
-					console.log("🎃", action.payload);
+					// console.log("🕶", action.payload);
 			return { ...state, selectedRoom: action.payload };
 		default:
 			return state;

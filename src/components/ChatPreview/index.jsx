@@ -17,6 +17,8 @@ const ChatPreview = ({
 			const createRoom = async () => {
 				const oneToOneRoom = JSON.stringify({
 					members: [user._id, chat._id],
+					description: `Chat with ${user.name} and ${chat.name} `,
+					roomAvatar: "https://image.flaticon.com/icons/png/512/1661/1661398.png",
 				});
 				console.log(oneToOneRoom)
 				try {
@@ -40,7 +42,7 @@ const ChatPreview = ({
 	};
 
 	return (
-		<div id={"chatPreview"}>
+		<div id={"chatPreview"} style={{margin: "2px"}}>
 			<div className={"d-flex flex-row align-items-center"}>
 				<img
 					className={"m-2"}

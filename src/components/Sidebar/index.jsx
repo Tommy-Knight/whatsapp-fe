@@ -42,10 +42,12 @@ const Sidebar = (props) => {
 	const createRoom = async () => {
 		setSelectingMembers(false);
 		const newRoom = JSON.stringify({
-			name: "",
-			description: "",
-			members: props.selectedMembers,
-			roomAvatar: "",
+			description: `Group chat with ${props.selectedMembers[0].name},
+				${props.selectedMembers[1].name},
+				${props.user.name} and friends!
+			`,
+			members: props.selectedMembers.concat([props.user]),
+			roomAvatar: "https://image.flaticon.com/icons/png/512/1527/1527842.png",
 			roomBackground: "",
 		});
 		console.log(newRoom);
@@ -117,9 +119,6 @@ const Sidebar = (props) => {
 					placeholder='Find a user'
 					aria-label='Search'
 				/>
-				<button className='btn btn-outline-success my-2 my-sm-0' type='submit'>
-					Search
-				</button>
 			</div>
 			{/* ########################################################### */}
 			<div
@@ -134,6 +133,31 @@ const Sidebar = (props) => {
 				{searchInput.length > 0 &&
 					filteredUsers.map((chat) => (
 						<ChatPreview selectingMembers={selectingMembers} chat={chat} />
+					))}
+				{searchInput.length > 0 &&
+					filteredUsers.map((chat) => (
+						<ChatPreview selectingMembers={selectingMembers} chat={chat} />
+					))}
+				{searchInput <= 0 &&
+					props.myRooms.map((room) => (
+						<div key={room._id} id={"chatPreview"} style={{ margin: "2px" }}>
+							<div className={"d-flex flex-row align-items-center"}>
+								<img
+									className={"m-2"}
+									onClick={() => {
+										props.selectedRoomDispatch(room);
+									}}
+									id={room._id}
+									alt=''
+									src={room.roomAvatar}
+									style={{ width: "50px" }}
+								/>
+								<div className={"d-flex flex-column align-items-left justify-items-center"}>
+									<span> {room.name} </span>
+									<span className={"partial-msg"}>{room.description} </span>
+								</div>
+							</div>
+						</div>
 					))}
 			</div>
 		</div>
