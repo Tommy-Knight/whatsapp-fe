@@ -1,11 +1,13 @@
 import "./style.css";
 
+import {Col, Row} from "react-bootstrap";
 import { clearSelectedMembersAction, selectedRoomAction } from "../../redux/actions";
 
 import ChatPreview from "../ChatPreview";
+import EditModel from "./editProfile/EditModel";
+import EditProfilePic from "./editProfile/EditProfilePic";
 import { connect } from "react-redux";
 import { useState } from "react";
-import {Col, Row} from "react-bootstrap";
 
 const Sidebar = (props) => {
 	const [selectingMembers, setSelectingMembers] = useState(false);
@@ -62,12 +64,17 @@ const Sidebar = (props) => {
 			console.log(error);
 		}
 	};
+
 	return (
 		<div id={"leftSidebar"} className={"d-flex flex-column justify-content-start"}>
 			{props.user && (
 				<div id={"loggedUserPreview"} className={"d-flex align-items-center p-2 "}>
-					<img className={"m-1"} alt='avatar' src={props.user.avatar}  />
-					<h3 className={"m-1"}>{props.user.Name}</h3>
+					{/* <img 
+					className={"m-1"} alt='avatar' src={props.user.avatar}  />
+					 */}
+					 <EditProfilePic/>
+					 <h3 className={"m-1"}>{props.user.name} {props.user.surname}</h3>
+					<EditModel/>
 				</div>
 			)}
 			{/* ########################################################### */}
