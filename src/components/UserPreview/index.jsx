@@ -1,30 +1,25 @@
 import "./style.css";
 
 import { Col, Row } from "react-bootstrap";
-import { useEffect, useState } from "react";
 
 import { connect } from "react-redux";
 
 const UserPreview = (props) => {
-	const [isSingleUser, setIsSingleUser] = useState(null);
-	useEffect(() => {
-		setIsSingleUser(true);
-	}, []);
+	// const [isSingleUser, setIsSingleUser] = useState(null);
+	// useEffect(() => {
+	// if (setIsSingleUser(true)) setIsSingleUser(true);
+
+	// }, []);
 	return (
-        
 		<section id={"userPreview"}>
-			<Row>
+			{props.selectedRoom && <Row>
 				<Col md={3}>
 					<div className={"d-flex justify-content-center"}>
-						{isSingleUser ? (
-							<img id={"userChatPic"} src='https://via.placeholder.com/100' alt={"userChatPic"} />
-						) : (
-							<img id={"groupChatPic"} src={"/"} alt={"groupChatPic"} />
-						)}
+						<img id={"userChatPic"} src={props.selectedRoom ? props.selectedRoom.roomAvatar : props.user.avatar} alt={""} />
 					</div>
 				</Col>
-				<Col md={9}>{isSingleUser && <h1 id={"userNickname"}>{props.user.name}</h1>}</Col>
-			</Row>
+				<Col md={9}>{props.selectedRoom && <h3 id={"userNickname"}>{props.selectedRoom.description}</h3>}</Col>
+			</Row>}
 		</section>
 	);
 };

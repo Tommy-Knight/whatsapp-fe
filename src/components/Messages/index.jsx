@@ -1,105 +1,93 @@
 import "./style.css";
 
+import { connect, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 
-import { connect } from "react-redux";
 import { io } from "socket.io-client";
-
-const MessageRow = ({ position }) => {
-	position = position === "start" || position === "end" ? position : "";
-
-	return (
-		<div
-			className={`d-flex justify-content-${position}`}
-			style={{ width: "100%", height: "max-content" }}>
-			<p className={`message ${position}`} style={{ maxWidth: "25%", height: "max-content" }}>
-				{"< message text >"}
-			</p>
-		</div>
-	);
-};
+import {refresh} from "../../redux/actions/index"
 
 const Messages = (props) => {
-	const [message, setMessage] = useState("");
-	const [loggedin, setLoggedIn] = useState(false);
-
 	const [chatHistory, setChatHistory] = useState([]);
-
-	const [onlineUsers, setOnlineUsers] = useState([]);
+	const [messageText, setMessageText] = useState("");
 
 	const ADDRESS = process.env.REACT_APP_BACKEND;
 	const socket = io(ADDRESS, { transports: ["websocket"] });
-	const messages = [{}];
-	const setMessageFunc = (e) => {
-		console.log(e.target.value);
-		setMessage(e.target.value);
-		sendMessage(e);
+  const dispatch = useDispatch();
+
+	const messageTextFunc = (e) => {
+		setMessageText(e.target.value);
 	};
 
 	const sendMessage = (e) => {
 		e.preventDefault();
-		if (loggedin) {
-			console.log("sending new message...");
-			const newMessage = {
-				text: e.target.value,
-				sender: props.user,
-				timestamp: Date.now(),
-				id: socket.id,
-			};
-			socket.emit("sendmessage", newMessage);
-			setChatHistory([...chatHistory, newMessage]);
-			setMessage("");
+		const fullMessage = {
+			message: messageText,
+			sender: props.user,
+		};
+		const roomId = props.selectedRoom._id
+		socket.emit("sendMessage", fullMessage, roomId );
+						setChatHistory((chatHistory) => [...chatHistory, fullMessage]);
+	};
+
+	const fetchChatHistory = async () => {
+		if (props.selectedRoom._id) {
+			const resp = await fetch(
+				`${process.env.REACT_APP_BACKEND}/messages/${props.selectedRoom._id}`,
+				{ credentials: "include" }
+			);
+			if (resp.ok) {
+				const data = await resp.json();
+				console.log("chathistory🎆", data);
+				setChatHistory(data);
+			}
 		}
 	};
 
-	const checkOnlineUsers = async () => {
-		try {
-			const response = await fetch(ADDRESS + "/online-users");
-			const data = await response.json();
-			setOnlineUsers(data.onlineUsers);
-		} catch (error) {
-			console.log(error);
-		}
-	};
 	useEffect(() => {
-		console.log("myiD👓", props.user._id);
+		fetchChatHistory();
 		socket.on("connect", () => {
 			socket.emit("login", props.user.id);
-			console.log(socket.id, "🎨 socket");
 		});
-
 		socket.on("loggedin", () => {
-			console.log("Successfully logged in!");
-			setLoggedIn(true);
-			checkOnlineUsers();
-			socket.on("message", () => {
-				console.log("a new message was received!");
+			console.log("🎨 Successfully logged in!");
+			socket.on("message", (reply) => {
+				setChatHistory((chatHistory) => [...chatHistory, reply.fullMessage]);
+				// console.log(newHistory, "🎍", reply.fullMessage);
 			});
 		});
-
 		socket.on("newConnection", () => {
 			console.log("new user logged in!");
 		});
 		return () => {
 			socket.disconnect();
 		};
-	}, []);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [props.selectedRoom._id]);
+
+	const MessageRow = ({msg}) => {
+		return (
+			<div
+				className={`d-flex justify-content-${msg.sender._id === props.user._id ? "start" : "end"}`}
+				style={{ width: "100%", height: "max-content" }}>
+				<p className={`message`} style={{ maxWidth: "25%", height: "max-content" }}>
+					🎈 {msg.message}
+				</p>
+			</div>
+		);
+	};
 
 	return (
 		<>
-			<div style={{ width: "100%", height: "100%" }}>
-				{messages
-					.map((msg) => (
-						<MessageRow
-							key={Math.random()}
-							position={msg.sender === props.user ? "end" : "start"}
-						/>
-					))
-					.reverse()}
+			<div style={{ width: "100%", height: "70%vh" }}>
+				{chatHistory && chatHistory.map((msg) => <MessageRow key={Math.random()} msg={msg} />)}
 			</div>
 
-			<form onSubmit={(e) => setMessageFunc(e)}>
-				<input placeholder='enter message'></input>
+			<form  onSubmit={(e) => sendMessage(e)}>
+				<input
+					onChange={(e) => messageTextFunc(e)}
+					name='input'
+					type='form'
+					placeholder='enter message'></input>
 				<button type='submit'>send</button>
 			</form>
 		</>
