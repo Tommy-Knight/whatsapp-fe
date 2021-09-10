@@ -11,7 +11,6 @@ import MessageEditor from "./MessageEditor";
 import MessageRows from "./MessageRows";
 
 const Messages = (props) => {
-	const [messages, setMessages] = useState([]);
     const [chatHistory, setChatHistory] = useState([]);
 
     const ADDRESS = process.env.REACT_APP_BACKEND;
@@ -19,12 +18,10 @@ const Messages = (props) => {
 
 	const liveSendMessage = ( message ) => {
 			const messageObj = {
-				text: message,
+				message: message,
 				sender: props.user,
-				timestamp: Date.now(),
-				id: socket.id,
 			};
-			socket.emit("sendmessage", messageObj );
+			socket.emit("sendmessage", messageObj, props.selectedRoom._id );
 			setChatHistory([...chatHistory, messageObj ]);
 	}
 	const newMessageEventHandler = () => {
@@ -52,7 +49,6 @@ const Messages = (props) => {
 			socket.emit("login", userID );
 		});
 	}
-
 
 	const aNewUserEventHandler = () => {
 		socket.on("newConnection", () => {

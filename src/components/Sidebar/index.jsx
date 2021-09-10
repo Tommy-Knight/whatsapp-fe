@@ -136,10 +136,6 @@ const Sidebar = (props) => {
 					filteredUsers.map((chat) => (
 						<ChatPreview selectingMembers={selectingMembers} chat={chat} />
 					))}
-				{searchInput.length > 0 &&
-					filteredUsers.map((chat) => (
-						<ChatPreview selectingMembers={selectingMembers} chat={chat} />
-					))}
 				{searchInput <= 0 &&
 					props.myRooms.map((room) => (
 						<div key={room._id} className={"chatPreview"} style={{ margin: "2px" }}>
